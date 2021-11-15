@@ -1,7 +1,7 @@
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import AllRoutes from "./node_modules/routes.jsx";
-import TopBar from "./node_modules/components/topBar.jsx";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AllRoutes from './dist/routes.jsx';
+import TopBar from './dist/components/topBar.jsx';
 function App() {
   return (
     <div>

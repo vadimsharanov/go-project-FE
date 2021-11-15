@@ -11,7 +11,6 @@ const Authentication = () => {
 	
 	const handleSubmit = (e) => {
 		e.preventDefault()
-
 		doFetch({
 			method: "post",
 			data: {
