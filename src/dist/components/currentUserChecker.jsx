@@ -10,7 +10,7 @@ const CurrentUserChecker = ({ children }) => {
     if (!token) {
       return setCurrentUserState((state) => ({
         ...state,
-        isLoading: false,
+        isLoggedIn: false,
       }));
     }
     doFetch();

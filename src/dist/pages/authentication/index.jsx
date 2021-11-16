@@ -19,6 +19,8 @@ const Authentication = (props) => {
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
   const [token, setToken] = useLocalStorage('token');
   const [currentUserState, setCurrentUserState] = useContext(CurrentUserContext);
+  console.log(token, currentUserState);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = isLogin ? { email, password } : { email, password, username };
