@@ -30,7 +30,7 @@ const CurrentUserChecker = ({ children }) => {
       isLoading: false,
       currentUser: response.user,
     }));
-  }, [response]);
+  }, [response, setCurrentUserState]);
   return children;
 };
 

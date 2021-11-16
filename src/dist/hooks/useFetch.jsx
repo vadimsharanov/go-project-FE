@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import useLocalStorage from './useLocalStorage';
@@ -37,7 +38,7 @@ export default (url) => {
         setError(error.response.data);
         setIsLoading(false);
       });
-  }, [isLoading, options, url]);
+  }, [isLoading, options, url, token]);
 
   return [{ isLoading, response, error }, doFetch];
 };
