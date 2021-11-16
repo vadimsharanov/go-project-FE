@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import GlobalFeed from './pages/globalFeed/index.jsx';
 import Article from './pages/article/index.jsx';
 import Authentication from './pages/authentication/index.jsx';
-const AllRoutes = () => {
+const AllRoutes = (props) => {
   return (
     <Routes>
       <Route path="/" element={<GlobalFeed></GlobalFeed>} exact />
