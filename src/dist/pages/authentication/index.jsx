@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Navigate, useNavigate } from 'react-router';
-import axios from 'axios';
+import { Navigate } from 'react-router';
 import useFetch from '../../hooks/useFetch';
+import useLocalStorage from '../../hooks/useLocalStorage';
+
 const Authentication = (props) => {
   const isLogin = useLocation().pathname === '/login';
   const pageTitle = isLogin ? 'Sign In' : 'Sign Up';
@@ -13,9 +14,8 @@ const Authentication = (props) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [isSuccessfullSubmit, setIsSuccessfullSumbit] = useState(false);
-  const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
+  const [{ response, isLoading }, doFetch] = useFetch(apiUrl);
   const [token, setToken] = useLocalStorage('token');
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = isLogin ? { email, password } : { email, password, username };
@@ -29,9 +29,9 @@ const Authentication = (props) => {
     if (!response) {
       return;
     }
-    localStorage.setItem('token', response.user.token);
+    setToken(response.user.token);
     setIsSuccessfullSumbit(true);
-  }, [response]);
+  }, [response, setToken]);
 
   if (isSuccessfullSubmit) {
     return <Navigate to="/" />;
