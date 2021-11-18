@@ -3,8 +3,11 @@ import React, { useEffect } from 'react';
 import { useLocation, useHistory, useParams } from 'react-router';
 import { Fragment } from 'react/cjs/react.production.min';
 import { getPaginator, limit } from '../../../utils';
+import ErrorMessage from '../../components/errorMessage';
 import Feed from '../../components/feed';
+import Loading from '../../components/loading';
 import Pagination from '../../components/pagination';
+import PopularTags from '../../components/popularTags';
 import useFetch from '../../hooks/useFetch';
 
 const GlobalFeed = () => {
@@ -32,8 +35,8 @@ const GlobalFeed = () => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
-            {isLoading && <div>Loading</div>}
-            {error && <div>Some error happened</div>}
+            {isLoading && <Loading></Loading>}
+            {error && <ErrorMessage></ErrorMessage>}
             {!isLoading && response && (
               <Fragment>
                 <Feed articles={response.articles}></Feed>
@@ -46,7 +49,9 @@ const GlobalFeed = () => {
               </Fragment>
             )}
           </div>
-          <div className="col-md-3">Popular tags</div>
+          <div className="col-md-3">
+            <PopularTags></PopularTags>
+          </div>
         </div>
       </div>
     </div>
