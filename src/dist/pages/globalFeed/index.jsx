@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router';
+import { Fragment } from 'react/cjs/react.production.min';
 import Feed from '../../components/feed';
+import Pagination from '../../components/pagination';
 import useFetch from '../../hooks/useFetch';
 
-const GlobalFeed = () => {
+const GlobalFeed = (props) => {
+  let gavno = useLocation();
+  console.log(gavno);
   const apiUrl = '/articles';
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
-  console.log(response);
   useEffect(() => {
     doFetch();
   }, [doFetch]);
@@ -23,7 +27,12 @@ const GlobalFeed = () => {
           <div className="col-md-9">
             {isLoading && <div>Loading</div>}
             {error && <div>Some error happened</div>}
-            {!isLoading && response && <Feed articles={response.articles}></Feed>}
+            {!isLoading && response && (
+              <Fragment>
+                <Feed articles={response.articles}></Feed>
+                <Pagination total={50} limit={10} url="/" currentPage={1}></Pagination>
+              </Fragment>
+            )}
           </div>
           <div className="col-md-3">Popular tags</div>
         </div>
