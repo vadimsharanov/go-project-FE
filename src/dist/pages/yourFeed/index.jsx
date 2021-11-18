@@ -11,7 +11,7 @@ import Pagination from '../../components/pagination';
 import PopularTags from '../../components/popularTags';
 import useFetch from '../../hooks/useFetch';
 
-const GlobalFeed = () => {
+const YourFeed = () => {
   const location = useLocation();
   const { offset, currentPage } = getPaginator(location.search);
   const stringifiedParams = stringify({
@@ -58,4 +58,4 @@ const GlobalFeed = () => {
     </div>
   );
 };
-export default GlobalFeed;
+export default YourFeed;

@@ -1,6 +1,6 @@
 import { stringify } from 'query-string';
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { matchRoutes, useLocation } from 'react-router';
 import { Fragment } from 'react/cjs/react.production.min';
 import { getPaginator, limit } from '../../../utils';
 import ErrorMessage from '../../components/errorMessage';
@@ -11,18 +11,20 @@ import Pagination from '../../components/pagination';
 import PopularTags from '../../components/popularTags';
 import useFetch from '../../hooks/useFetch';
 
-const GlobalFeed = () => {
+const TagFeed = () => {
   const location = useLocation();
+  const tagName = location.pathname.split('/tags/').join('');
   const { offset, currentPage } = getPaginator(location.search);
   const stringifiedParams = stringify({
     limit,
     offset,
+    tag: tagName,
   });
   const apiUrl = `/articles?${stringifiedParams}`;
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
   useEffect(() => {
     doFetch();
-  }, [doFetch, currentPage]);
+  }, [doFetch, currentPage, tagName]);
 
   return (
     <div className="home-page">
@@ -35,7 +37,7 @@ const GlobalFeed = () => {
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
-            <FeedToggler />
+            <FeedToggler tagName={tagName}></FeedToggler>
             {isLoading && <Loading></Loading>}
             {error && <ErrorMessage></ErrorMessage>}
             {!isLoading && response && (
@@ -58,4 +60,4 @@ const GlobalFeed = () => {
     </div>
   );
 };
-export default GlobalFeed;
+export default TagFeed;
