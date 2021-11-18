@@ -1,18 +1,25 @@
+import { stringify } from 'query-string';
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory, useParams } from 'react-router';
 import { Fragment } from 'react/cjs/react.production.min';
+import { getPaginator, limit } from '../../../utils';
 import Feed from '../../components/feed';
 import Pagination from '../../components/pagination';
 import useFetch from '../../hooks/useFetch';
 
-const GlobalFeed = (props) => {
-  let gavno = useLocation();
-  console.log(gavno);
-  const apiUrl = '/articles';
+const GlobalFeed = () => {
+  const location = useLocation();
+
+  const { offset, currentPage } = getPaginator(location.search);
+  const stringifiedParams = stringify({
+    limit,
+    offset,
+  });
+  const apiUrl = `/articles?${stringifiedParams}`;
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
   useEffect(() => {
     doFetch();
-  }, [doFetch]);
+  }, [doFetch, currentPage]);
 
   return (
     <div className="home-page">
@@ -30,7 +37,12 @@ const GlobalFeed = (props) => {
             {!isLoading && response && (
               <Fragment>
                 <Feed articles={response.articles}></Feed>
-                <Pagination total={50} limit={10} url="/" currentPage={1}></Pagination>
+                <Pagination
+                  total={response.articlesCount}
+                  limit={limit}
+                  url={location.pathname}
+                  currentPage={currentPage}
+                ></Pagination>
               </Fragment>
             )}
           </div>
