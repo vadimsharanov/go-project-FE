@@ -17,9 +17,8 @@ const Authentication = (props) => {
   const [username, setUsername] = useState('');
   const [isSuccessfullSubmit, setIsSuccessfullSumbit] = useState(false);
   const [{ response, isLoading, error }, doFetch] = useFetch(apiUrl);
-  const [token, setToken] = useLocalStorage('token');
-  const [currentUserState, setCurrentUserState] = useContext(CurrentUserContext);
-  console.log(token, currentUserState);
+  const [, setToken] = useLocalStorage('token');
+  const [, dispatch] = useContext(CurrentUserContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,15 +35,8 @@ const Authentication = (props) => {
     }
     setToken(response.user.token);
     setIsSuccessfullSumbit(true);
-    setCurrentUserState((state) => {
-      return {
-        ...state,
-        isLoggedIn: true,
-        isLoading: false,
-        currentUser: response.user,
-      };
-    });
-  }, [response, setToken, setCurrentUserState]);
+    dispatch({ type: 'SET_AUTHORIZED', payload: response.user });
+  }, [response, setToken, dispatch]);
 
   if (isSuccessfullSubmit) {
     return <Navigate to="/" />;
