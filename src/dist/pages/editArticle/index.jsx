@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../../contexts/currentUser';
 const EditArticle = () => {
   const location = useLocation();
   const slug = location.pathname.split('/articles/').join('').split('/edit').join('');
-  const [currentUserState] = useContext(currentUserState);
+  const [currentUserState] = useContext(CurrentUserContext);
   const apiUrl = `/articles/${slug}`;
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
   const [{ response: fetchArticleResponse }, doFetchArticle] = useFetch(apiUrl);
@@ -30,7 +30,6 @@ const EditArticle = () => {
       // console.log('hello');
       return;
     }
-    console.log(fetchArticleResponse);
     setInitialValues({
       title: fetchArticleResponse.article.title,
       description: fetchArticleResponse.article.description,

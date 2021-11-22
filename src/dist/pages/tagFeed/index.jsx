@@ -1,6 +1,6 @@
 import { stringify } from 'query-string';
 import React, { useEffect } from 'react';
-import { matchRoutes, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import { Fragment } from 'react/cjs/react.production.min';
 import { getPaginator, limit } from '../../../utils';
 import ErrorMessage from '../../components/errorMessage';

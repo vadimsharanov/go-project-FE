@@ -1,51 +1,96 @@
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import ErrorMessage from '../../components/errorMessage';
 import Loading from '../../components/loading';
 import TagList from '../../components/tagList';
 import useFetch from '../../hooks/useFetch';
+import { CurrentUserContext } from '../../contexts/currentUser';
 
 const Article = () => {
   const location = useLocation();
   const slug = location.pathname.split('/articles/').join('');
   const apiUrl = `/articles/${slug}`;
-  const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
-  console.log(response);
+  const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
+  const [currentUserState] = useContext(CurrentUserContext);
+  const [
+    { response: fetchArticleResponse, error: fetchArticleError, isLoading: fetchArticleIsLoading },
+    doFetch,
+  ] = useFetch(apiUrl);
+  const [{ response: deteleArticleResponse }, doDeleteArticle] = useFetch(apiUrl);
+
+  const isAuthor = () => {
+    if (!fetchArticleResponse || !currentUserState.isLoggedIn) {
+      return false;
+    }
+    return fetchArticleResponse.article.author.username === currentUserState.currentUser.username;
+  };
+
   useEffect(() => {
     doFetch();
   }, [doFetch]);
 
+  const deleteArticle = () => {
+    doDeleteArticle({
+      method: 'delete',
+    });
+  };
+  useEffect(() => {
+    if (!deteleArticleResponse) {
+      return;
+    }
+    setIsSuccessfullSubmit(true);
+  }, [deteleArticleResponse]);
+
+  if (isSuccessfullSubmit) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="article-page">
       <div className="banner">
-        {!isLoading && response && (
+        {!fetchArticleIsLoading && fetchArticleResponse && (
           <div className="container">
-            <h1>{response.article.title}</h1>
+            <h1>{fetchArticleResponse.article.title}</h1>
             <div className="article-meta">
-              <Link to={`/profiles/${response.article.author.username}`}>
-                <img src={response.article.author.image} alt="" />
+              <Link to={`/profiles/${fetchArticleResponse.article.author.username}`}>
+                <img src={fetchArticleResponse.article.author.image} alt="" />
               </Link>
               <div className="info">
-                <Link to={`/profiles/${response.article.author.username}`}>
-                  {response.article.author.username}
+                <Link to={`/profiles/${fetchArticleResponse.article.author.username}`}>
+                  {fetchArticleResponse.article.author.username}
                 </Link>
-                <span className="date"> {response.article.createdAt}</span>
+                <span className="date"> {fetchArticleResponse.article.createdAt}</span>
               </div>
+              {isAuthor() && (
+                <span>
+                  <Link
+                    className="btn btn-outline-secondary btn-sm"
+                    to={`/articles/${fetchArticleResponse.article.slug}/edit`}
+                  >
+                    <i className="ion-edit"></i>
+                    Edit Article
+                  </Link>
+                  <button className="btn btn-outline-danger btn-sm" onClick={deleteArticle}>
+                    <i className="ion-trash-a"></i>
+                    Delete article
+                  </button>
+                </span>
+              )}
             </div>
           </div>
         )}
       </div>
       <div className="container page">
-        {isLoading && <Loading></Loading>}
-        {error && <ErrorMessage></ErrorMessage>}
-        {!isLoading && response && (
+        {fetchArticleIsLoading && <Loading></Loading>}
+        {fetchArticleError && <ErrorMessage></ErrorMessage>}
+        {!fetchArticleIsLoading && fetchArticleResponse && (
           <div className="row article-content">
             <div className="col-xs-12">
               <div>
-                <p>{response.article.body}</p>
+                <p>{fetchArticleResponse.article.body}</p>
               </div>
-              <TagList tags={response.article.tagList}></TagList>
+              <TagList tags={fetchArticleResponse.article.tagList}></TagList>
             </div>
           </div>
         )}
