@@ -4,9 +4,9 @@ import { Navigate } from 'react-router';
 import useFetch from '../../hooks/useFetch';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { CurrentUserContext } from '../../contexts/currentUser';
-import BackEndErrorMessages from './components/backEndErrorMessages';
+import BackEndErrorMessages from '../../components/backEndErrorMessages';
 
-const Authentication = (props) => {
+const Authentication = () => {
   const isLogin = useLocation().pathname === '/login';
   const pageTitle = isLogin ? 'Sign In' : 'Sign Up';
   const descriptionLink = isLogin ? '/register' : '/login';
