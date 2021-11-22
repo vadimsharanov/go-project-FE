@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BackEndErrorMessages from './backEndErrorMessages';
 
-const ArticleForm = ({ onSumbit, errors, initialValues }) => {
+const ArticleForm = ({ onSubmit, errors, initialValues }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [body, setBody] = useState('');
@@ -15,7 +15,7 @@ const ArticleForm = ({ onSumbit, errors, initialValues }) => {
       description,
       tagList,
     };
-    onSumbit(article);
+    onSubmit(article);
     console.log('fields', title, description, body, tagList);
   };
 
@@ -23,7 +23,6 @@ const ArticleForm = ({ onSumbit, errors, initialValues }) => {
     if (!initialValues) {
       return;
     }
-    // console.log(initialValues);
     setTitle(initialValues.title);
     setDescription(initialValues.description);
     setBody(initialValues.body);

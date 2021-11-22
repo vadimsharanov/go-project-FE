@@ -11,6 +11,7 @@ const Article = () => {
   const slug = location.pathname.split('/articles/').join('');
   const apiUrl = `/articles/${slug}`;
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
+  console.log(response);
   useEffect(() => {
     doFetch();
   }, [doFetch]);

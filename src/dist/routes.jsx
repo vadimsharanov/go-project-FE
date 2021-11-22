@@ -6,12 +6,14 @@ import Authentication from './pages/authentication/index.jsx';
 import TagFeed from './pages/tagFeed/index.jsx';
 import YourFeed from './pages/yourFeed/index.jsx';
 import CreateArticle from './pages/createArticle/index.jsx';
+import EditArticle from './pages/editArticle/index.jsx';
 
 const AllRoutes = (props) => {
   return (
     <Routes>
       <Route path="/" element={<GlobalFeed></GlobalFeed>} />
       <Route path="/articles/new" element={<CreateArticle></CreateArticle>} />
+      <Route path="/articles/:slug/edit" element={<EditArticle></EditArticle>} />
       <Route path="/feed" element={<YourFeed></YourFeed>} />
       <Route path="/tags/:slug" element={<TagFeed></TagFeed>} />
       <Route path="/login" element={<Authentication></Authentication>} />

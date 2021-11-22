@@ -45,7 +45,7 @@ const CreateArticle = () => {
       <ArticleForm
         errors={error || { foo: 'foo' }}
         initialValues={initialValues}
-        onSumbit={handleSubmit}
+        onSubmit={handleSubmit}
       ></ArticleForm>
     </h1>
   );
