@@ -6,7 +6,7 @@ const BackEndErrorMessages = ({ backEndErrors }) => {
       {Array.isArray(message) ? (
         <ul>
           {message.map((single) => (
-            <li>{single}</li>
+            <li key={single}>{single}</li>
           ))}
         </ul>
       ) : (
