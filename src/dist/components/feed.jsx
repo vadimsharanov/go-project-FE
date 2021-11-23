@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { dateFormat } from '../../utils';
+import AddToFavorites from './addToFavorites';
 import TagList from './tagList';
 
 const Feed = ({ articles }) => {
@@ -12,9 +13,17 @@ const Feed = ({ articles }) => {
             <Link to={`/profiles/${article.author.username}`}>
               <img src={article.author.image} alt="" />
             </Link>
-            <div className="">
+            <div className="info">
               <Link to={`/profiles/${article.author.username}`} className="author"></Link>
               <span className="date">{dateFormat(article.createdAt)}</span>
+            </div>
+            <div className="pull-xs-right">
+              <AddToFavorites
+                isFavorited={article.favorited}
+                favoritesCount={article.favoritesCount}
+                articleSlug={article.slug}
+              ></AddToFavorites>
+              {/* {console.log(article)} */}
             </div>
           </div>
           <Link to={`/articles/${article.slug}`} className="preview-link">
