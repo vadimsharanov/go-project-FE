@@ -13,11 +13,9 @@ const CreateArticle = () => {
     body: '',
     tagList: [],
   };
-
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
 
   const handleSubmit = (article) => {
-    console.log('handlesumbit', article);
     doFetch({
       method: 'post',
       data: {

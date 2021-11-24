@@ -34,7 +34,6 @@ export default (url) => {
         setResponse(res.data);
       })
       .catch((error) => {
-        console.log(error.response.data);
         setError(error.response.data);
         setIsLoading(false);
       });

@@ -7,7 +7,6 @@ const AddToFavorites = ({ isFavorited, favoritesCount, articleSlug }) => {
   const [{ response }, doFetch] = useFetch(apiUrl);
   const favoritesCountWithResponse = response ? response.article.favoritesCount : favoritesCount;
   const [favorited, setFavorited] = useState(isFavorited);
-  console.log(favorited);
   const handleLike = (event) => {
     event.preventDefault();
     doFetch({

@@ -16,7 +16,6 @@ const ArticleForm = ({ onSubmit, errors, initialValues }) => {
       tagList,
     };
     onSubmit(article);
-    console.log('fields', title, description, body, tagList);
   };
 
   useEffect(() => {
