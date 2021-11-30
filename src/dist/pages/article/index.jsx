@@ -6,6 +6,8 @@ import Loading from '../../components/loading';
 import TagList from '../../components/tagList';
 import useFetch from '../../hooks/useFetch';
 import { CurrentUserContext } from '../../contexts/currentUser';
+import CommentFeed from '../../components/commentFeed';
+import CommentForm from '../../components/commentForm';
 
 const Article = () => {
   const location = useLocation();
@@ -95,6 +97,8 @@ const Article = () => {
           </div>
         )}
       </div>
+      <CommentForm></CommentForm>
+      <CommentFeed></CommentFeed>
     </div>
   );
 };
