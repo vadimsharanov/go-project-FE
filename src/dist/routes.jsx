@@ -8,12 +8,15 @@ import YourFeed from './pages/yourFeed/index.jsx';
 import CreateArticle from './pages/createArticle/index.jsx';
 import EditArticle from './pages/editArticle/index.jsx';
 import Settings from './pages/settings/index.jsx';
+import UserProfile from './pages/userProfile/index.jsx';
 
 const AllRoutes = (props) => {
   return (
     <Routes>
       <Route path="/" element={<GlobalFeed></GlobalFeed>} />
       <Route path="/settings" element={<Settings></Settings>} />
+      <Route path="/profiles/:slug" element={<UserProfile></UserProfile>} />
+      <Route path="/profiles/:slug/favorites" element={<UserProfile></UserProfile>} />
       <Route path="/articles/new" element={<CreateArticle></CreateArticle>} />
       <Route path="/articles/:slug/edit" element={<EditArticle></EditArticle>} />
       <Route path="/feed" element={<YourFeed></YourFeed>} />

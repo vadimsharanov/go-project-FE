@@ -23,7 +23,6 @@ const Feed = ({ articles }) => {
                 favoritesCount={article.favoritesCount}
                 articleSlug={article.slug}
               ></AddToFavorites>
-              {/* {console.log(article)} */}
             </div>
           </div>
           <Link to={`/articles/${article.slug}`} className="preview-link">
