@@ -10,7 +10,7 @@ import EditArticle from './pages/editArticle/index.jsx';
 import Settings from './pages/settings/index.jsx';
 import UserProfile from './pages/userProfile/index.jsx';
 
-const AllRoutes = (props) => {
+const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<GlobalFeed></GlobalFeed>} />

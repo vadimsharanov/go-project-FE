@@ -11,7 +11,7 @@ const FeedToggler = ({ tagName }) => {
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="/" className="nav-link" exact="true">
+          <NavLink to="/" className="nav-link">
             Global Feed
           </NavLink>
         </li>
