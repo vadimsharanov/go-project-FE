@@ -7,7 +7,7 @@ import UserArticles from './components/userArticles';
 
 const UserProfile = () => {
   const location = useLocation();
-  const slug = location.pathname.split('/profiles/').join('').split('favorites').join('');
+  const slug = location.pathname.split('/profiles/').join('').split('/favorites').join('');
   const isFavorites = location.pathname.includes('favorites');
   const apiUrl = `/profiles/${slug}`;
   const [{ response, error }, doFetch] = useFetch(apiUrl);
@@ -37,15 +37,19 @@ const UserProfile = () => {
             <div className="articles-toggle">
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
-                  <NavLink className="nav-link" to={`/profiles/${response.profile.username}`}>
+                  <NavLink
+                    className="nav-link"
+                    to={`/profiles/${response.profile.username}/`}
+                    exact="true"
+                  >
                     My Posts
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     className="nav-link"
-                    exact="true"
-                    to={`/profiles/${response.profile.username}/favorites`}
+                    // exact="true"
+                    to={`/profiles/${response.profile.username}/favorites/`}
                   >
                     Favorite posts
                   </NavLink>

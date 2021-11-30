@@ -57,7 +57,7 @@ const Article = () => {
                 <img src={fetchArticleResponse.article.author.image} alt="" />
               </Link>
               <div className="info">
-                <Link to={`/profiles/${fetchArticleResponse.article.author.username}`}>
+                <Link to={`/profiles/${fetchArticleResponse.article.author.username}/`}>
                   {fetchArticleResponse.article.author.username}
                 </Link>
                 <span className="date"> {fetchArticleResponse.article.createdAt}</span>
