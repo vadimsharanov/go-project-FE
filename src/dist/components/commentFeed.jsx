@@ -9,7 +9,6 @@ const CommentFeed = () => {
   const slug = location.split('/articles/').join('');
   const apiUrl = `/articles/${slug}/comment`;
   const [{ response, error }, doFetch] = useFetch(apiUrl);
-  console.log(response.comments[0].createdAt);
   useEffect(() => {
     doFetch();
   }, [doFetch]);
@@ -19,7 +18,7 @@ const CommentFeed = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-xs-12 offset-md-1">
+        <div className="col-xs-12 col-md-10 offset-md-1">
           {response.comments.map((item, index) => (
             <div key={index} className="card">
               <div className="card-block">

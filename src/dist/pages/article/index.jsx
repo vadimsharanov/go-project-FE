@@ -15,6 +15,7 @@ const Article = () => {
   const apiUrl = `/articles/${slug}`;
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
   const [currentUserState] = useContext(CurrentUserContext);
+  console.log(currentUserState.isLoggedIn);
   const [
     { response: fetchArticleResponse, error: fetchArticleError, isLoading: fetchArticleIsLoading },
     doFetch,
@@ -97,8 +98,19 @@ const Article = () => {
           </div>
         )}
       </div>
-      <CommentForm></CommentForm>
-      <CommentFeed></CommentFeed>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-10 col-xs-12 ">
+            {!currentUserState.isLoggedIn && (
+              <div className="card-block offset-md-4">
+                Sign in or sign up to add comments on this article.
+              </div>
+            )}
+            <CommentForm></CommentForm>
+            <CommentFeed></CommentFeed>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
